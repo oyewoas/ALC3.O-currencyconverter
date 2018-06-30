@@ -34,7 +34,6 @@ self.addEventListener('install', event => {
             'css/bootstrap-grid.min.css',
             'https://free.currencyconverterapi.com/api/v5/currencies'
 
-
         ]))
     );
 });
