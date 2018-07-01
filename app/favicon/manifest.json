@@ -38,7 +38,7 @@
             "density": "4.0"
         }
     ],
-    "start_url": "index.html",
+    "start_url": "https://oyewoas.github.io/ALC3.O-currencyconverter/app/",
     "background_color": "white",
     "display": "standalone",
     "scope": ".",
