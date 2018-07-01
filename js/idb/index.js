@@ -30,7 +30,6 @@ convertBtn.addEventListener('click', () => {
             .then(rate => {
                 const rate_value = rate[`${srcCurrency}_${destCurrency}`];
                 // convert using the fetched rate
-                //resultingAmount.textContent = `${destCurrency} ${(rate_value * inputAmount.value).toFixed(2)}`;
                 // Add the fetched rate to IndexedDB
                 dbPromise.then(db => {
                     const tx = db.transaction('rates', 'readwrite');

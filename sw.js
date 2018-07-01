@@ -13,7 +13,7 @@ self.addEventListener('fetch', event => {
 });
 
 
-const staticCacheName = 'myStaticCache';
+const staticCacheName = 'myStaticCache1';
 
 self.addEventListener('install', event => {
     event.waitUntil(
@@ -32,7 +32,10 @@ self.addEventListener('install', event => {
             'css/bootstrap.min.css',
             'css/bootstrap-grid.css',
             'css/bootstrap-grid.min.css',
-            'https://free.currencyconverterapi.com/api/v5/currencies'
+            'https://free.currencyconverterapi.com/api/v5/currencies',
+            'https://fonts.googleapis.com/css?family=Lato',
+            'https://use.fontawesome.com/releases/v5.1.0/css/all.css'
+
 
         ]))
     );
