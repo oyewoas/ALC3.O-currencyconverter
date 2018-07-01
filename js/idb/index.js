@@ -2,29 +2,35 @@ const dbPromise = idb.open('currencies-db', 1, upgradeDB => {
     upgradeDB.createObjectStore('rates', { keyPath: 'id' });
 });
 
-const convertBtn = document.getElementById('js_convertBtn');
-let inputAmount = document.getElementById('js_inputAmount');
-let resultingAmount = document.getElementById('js_resultingAmount');
+
+
+
+
+
+
+const convertBtn = document.getElementById('convertBtn');
+let inputAmount = document.getElementById('inputAmount');
+let resultingAmount = document.getElementById('resultingAmount');
 const srcSelect = document.getElementsByTagName('select')[0];
 const destSelect = document.getElementsByTagName('select')[1];
 
 convertBtn.addEventListener('click', () => {
-    const src_selected_opt = srcSelect.options[srcSelect.selectedIndex];
-    const dest_selected_opt = destSelect.options[destSelect.selectedIndex];
-    const src_currency = src_selected_opt.id;
-    const dest_currency = dest_selected_opt.id;
+    const srcSelected = srcSelect.options[srcSelect.selectedIndex];
+    const destSelected = destSelect.options[destSelect.selectedIndex];
+    const srcCurrency = srcSelected.id;
+    const destCurrency = destSelected.id;
 
     const fetchRate = function(isRateFound) {
         return fetch(
-                `https://free.currencyconverterapi.com/api/v5/convert?q=${src_currency}_${dest_currency}&compact=ultra`
+                `https://free.currencyconverterapi.com/api/v5/convert?q=${srcCurrency}_${destCurrency}&compact=ultra`
             )
             .then(rateResp => {
                 return rateResp.json();
             })
             .then(rate => {
-                const rate_value = rate[`${src_currency}_${dest_currency}`];
+                const rate_value = rate[`${srcCurrency}_${destCurrency}`];
                 // convert using the fetched rate
-                //resultingAmount.textContent = `${dest_currency} ${(rate_value * inputAmount.value).toFixed(2)}`;
+                //resultingAmount.textContent = `${destCurrency} ${(rate_value * inputAmount.value).toFixed(2)}`;
                 // Add the fetched rate to IndexedDB
                 dbPromise.then(db => {
                     const tx = db.transaction('rates', 'readwrite');
@@ -33,7 +39,7 @@ convertBtn.addEventListener('click', () => {
                     // add it if it doesn't exist, or update it if it already exists
                     ratesStore.put({
                         rate: rate_value,
-                        id: `${src_currency}_${dest_currency}`
+                        id: `${srcCurrency}_${destCurrency}`
                     });
                     return tx.complete;
                 });
@@ -73,7 +79,7 @@ convertBtn.addEventListener('click', () => {
                 storedRate = cursor.value;
                 // Once we find the wanted rate, the cursor stops iterating
                 return (
-                    cursor.value.id === `${src_currency}_${dest_currency}` ||
+                    cursor.value.id === `${srcCurrency}_${destCurrency}` ||
                     cursor.continue().then(cursorIterate)
                 );
             })
@@ -82,7 +88,7 @@ convertBtn.addEventListener('click', () => {
 
                 if (isRateFound && storedRate)
                 // rate already stored
-                    resultingAmount.textContent = `${dest_currency} ${(
+                    resultingAmount.textContent = `${destCurrency} ${(
             storedRate.rate * inputAmount.value
           ).toFixed(2)}`;
 
@@ -94,7 +100,7 @@ convertBtn.addEventListener('click', () => {
                 */
                     return fetchRate(isRateFound).then(
                     fetchedRate =>
-                    (resultingAmount.textContent = `${dest_currency} ${(
+                    (resultingAmount.textContent = `${destCurrency} ${(
                 fetchedRate * inputAmount.value
               ).toFixed(2)}`)
                 );
