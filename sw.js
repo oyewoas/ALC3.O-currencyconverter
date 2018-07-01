@@ -8,7 +8,7 @@ self.addEventListener('fetch', event => {
             }
             return response;
         })
-        .catch(error => new Response('Uh oh, that totally failed:', error))
+        // .catch(error => new Response('Uh oh, that totally failed:', error))
     );
 });
 
@@ -54,10 +54,4 @@ self.addEventListener('fetch', event => {
         .then(response => response || fetch(event.request))
 
     );
-});
-
-self.addEventListener('message', function(event) {
-    if (event.data.action === 'skipWaiting') {
-        self.skipWaiting();
-    }
 });
