@@ -8,12 +8,12 @@ self.addEventListener('fetch', event => {
             }
             return response;
         })
-        // .catch(error => new Response('Uh oh, that totally failed:', error))
+        .catch(error => new Response('Uh oh, that totally failed:', error))
     );
 });
 
 
-const staticCacheName = 'myStaticCache4';
+const staticCacheName = 'myStaticCache';
 
 self.addEventListener('install', event => {
     event.waitUntil(
