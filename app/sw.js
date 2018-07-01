@@ -1,19 +1,19 @@
 //Respond when files not found
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        fetch(event.request)
-        .then(response => {
-            if (response.status === 404) {
-                return new Response('Whoops, not found');
-            }
-            return response;
-        })
-        .catch(error => new Response('Uh oh, that totally failed:', error))
-    );
-});
+// self.addEventListener('fetch', event => {
+//     event.respondWith(
+//         fetch(event.request)
+//         .then(response => {
+//             if (response.status === 404) {
+//                 return new Response('Whoops, not found');
+//             }
+//             return response;
+//         })
+//         .catch(error => new Response('Uh oh, that totally failed:', error))
+//     );
+// });
 
 
-const staticCacheName = 'myStaticCache';
+const staticCacheName = 'myStaticCache1';
 
 self.addEventListener('install', event => {
     event.waitUntil(
