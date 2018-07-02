@@ -13,7 +13,7 @@ self.addEventListener('fetch', event => {
 });
 
 
-const staticCacheName = 'myStaticCache2';
+const staticCacheName = 'myStaticCache1';
 
 self.addEventListener('install', event => {
     event.waitUntil(
